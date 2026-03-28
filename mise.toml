@@ -1,0 +1,31 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+
+[env]
+_.file = [".env", ".env.local"]
+COMPOSE_FILE = "./docker-compose.yaml"
+
+[tools]
+hurl = "latest"
+mago = "latest"
+
+# section:tasks
+[tasks]
+[tasks.docker-compose-down]
+description = "Stops all containers"
+run = "./.mise/scripts/docker-compose-down.sh"
+
+[tasks.docker-compose-up]
+description = "Runs specified containers (all by default) in detached mode"
+depends = ["docker-compose-down"]
+run = "./.mise/scripts/docker-compose-up.sh"
+
+[tasks.docker-compose-logs]
+description = "Shows all containers logs in following mode"
+env = { COMPOSE_FILE = "./docker-compose.yaml" }
+run = "docker compose logs --follow"
+
+[tasks.test-http]
+description = "Runs HTTP tests with HURL"
+env = { HURL_VARS_FILE = "{{ config_root }}/hurl.env", HURL_REQUESTS_FILES = "requests.hurl", DC_RUN_SILENT = "1" }
+depends = ["docker-compose-up"]
+run = "hurl ${HURL_REQUESTS_FILES} --variables-file ${HURL_VARS_FILE:-hurl.env} "

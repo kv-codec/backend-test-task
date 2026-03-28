@@ -5,18 +5,19 @@
     "minimum-stability": "stable",
     "prefer-stable": true,
     "require": {
-        "php": ">=8.3",
+        "php": ">=8.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "symfony/console": "6.4.*",
-        "symfony/dotenv": "6.4.*",
-        "symfony/flex": "^2",
-        "symfony/framework-bundle": "6.4.*",
-        "symfony/property-access": "6.4.*",
-        "symfony/runtime": "6.4.*",
-        "symfony/serializer": "6.4.*",
-        "symfony/validator": "6.4.*",
-        "symfony/yaml": "6.4.*",
+        "symfony/console": "8.*",
+        "symfony/dotenv": "8.*",
+        "symfony/expression-language": "8.*",
+        "symfony/flex": "2.*",
+        "symfony/framework-bundle": "8.*",
+        "symfony/property-access": "8.*",
+        "symfony/runtime": "8.*",
+        "symfony/serializer": "8.*",
+        "symfony/validator": "8.*",
+        "symfony/yaml": "8.*",
         "systemeio/test-for-candidates": "^1.0.2"
     },
     "config": {
@@ -64,7 +65,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "6.4.*"
+            "require": "8.*"
         }
     }
 }

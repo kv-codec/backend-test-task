@@ -1,9 +1,17 @@
-FROM php:8.3-cli-alpine AS sio_test
-RUN apk add --no-cache git zip bash
+ARG DOCKER_PHP_VERSION=8.5
+FROM php:${DOCKER_PHP_VERSION}-cli-alpine AS sio_test
+RUN apk add --no-cache --update autoconf \
+    bash \
+    build-base \
+    git \
+    linux-headers \
+    zip
 
 # Setup php extensions
 RUN apk add --no-cache postgresql-dev \
     && docker-php-ext-install pdo_pgsql pdo_mysql
+RUN pecl install pcov \
+    && docker-php-ext-enable pcov
 
 ENV COMPOSER_CACHE_DIR=/tmp/composer-cache
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

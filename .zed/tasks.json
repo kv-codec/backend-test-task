@@ -1,0 +1,54 @@
+// Project tasks configuration. See https://zed.dev/docs/tasks for documentation.
+//
+[
+    {
+        "label": "docker compose (dc): up",
+        "command": "mise run docker-compose-up",
+        "shell": "system",
+        "use_new_terminal": true,
+        "allow_concurrent_runs": false,
+        "reveal": "no_focus",
+        "hide": "on_success",
+        "show_command": true,
+        "show_summary": true
+    },
+    {
+        "label": "docker compose (dc): down",
+        "command": "mise run docker-compose-down",
+        "shell": "system",
+        "use_new_terminal": true,
+        "allow_concurrent_runs": false,
+        "reveal": "no_focus",
+        "hide": "on_success",
+        "show_command": true,
+        "show_summary": true
+    },
+    {
+        "label": "docker compose (dc): logs",
+        "command": "mise run docker-compose-logs",
+        "shell": "system",
+        "use_new_terminal": true,
+        "allow_concurrent_runs": false,
+        "reveal": "no_focus",
+        "hide": "never",
+        "show_command": true,
+        "show_summary": true
+    },
+    {
+        "label": "mago analyze --watch",
+        "command": "mise run analyze-watch"
+    },
+    {
+        "label": "tests (t): http",
+        "command": "mise run test-http --verbose --color",
+        "env": {
+            "DC_RUN_SILENT": "true"
+        },
+        "shell": "system",
+        "use_new_terminal": true,
+        "reveal": "always",
+        "hide": "never",
+        "show_summary": true,
+        "show_command": true
+    }
+]

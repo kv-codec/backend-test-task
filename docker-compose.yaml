@@ -1,0 +1,23 @@
+services:
+    sio_test:
+        user: app
+        build:
+            context: .
+            args:
+                USER_ID: ${USER_ID:-1000}
+                DOCKER_PHP_VERSION: ${DOCKER_PHP_VERSION:-8.5}
+        container_name: ${DOCKER_PHP_CONTAINER_NAME:-sio_test}
+        ports:
+            - "8337:8337"
+        volumes:
+            - .:/app:rw
+        environment:
+            - APP_ENV=dev
+        healthcheck:
+            # prettier-ignore
+            test:
+                ["CMD", "php", "-r", "file_get_contents('http://localhost:8337');"]
+            interval: 2s
+            timeout: 10s
+            retries: 15
+            start_period: 5s

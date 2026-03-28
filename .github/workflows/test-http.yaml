@@ -1,0 +1,21 @@
+name: HTTP Tests
+
+on:
+    pull_request:
+        branches:
+            - main
+
+jobs:
+    test-http:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: jdx/mise-action@v4
+              with:
+                  cache: true
+                  # experimental: true # нужно для aqua backend (hurl)
+
+            - name: Run HTTP tests
+              run: mise run test-http
