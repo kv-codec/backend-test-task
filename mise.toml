@@ -8,6 +8,7 @@ DOCKER_PHP_CONTAINER_NAME = "sio_test"
 
 [tools]
 hurl = "latest"
+lefthook = "latest"
 mago = "latest"
 
 # section:tasks
@@ -36,7 +37,11 @@ description = "Waits for containers to be healthy"
 wait_for = ["docker-cli composer install"]
 file = "./.mise/scripts/docker-healthcheck.sh"
 
-[tasks.test-http]
+[tasks."tests:pest:unit"]
+description = "Runs unit tests with Pest"
+run = "./vendor/bin/pest"
+
+[tasks."tests:http"]
 description = "Runs HTTP tests with HURL"
 env = { HURL_VARS_FILE = "{{ config_root }}/hurl.env", HURL_REQUESTS_FILES = "requests.hurl", DC_RUN_SILENT = "1" }
 run = [
@@ -45,3 +50,7 @@ run = [
   { task = "docker-healthcheck" },
   "hurl ${HURL_REQUESTS_FILES} --variables-file ${HURL_VARS_FILE:-hurl.env}"
 ]
+
+[[watch_files]]
+patterns = ["./.config/lefthook.yaml"]
+run = "lefthook install"
