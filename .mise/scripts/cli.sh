@@ -1,4 +1,4 @@
-#!/usr/bin/bash -vx
+#!/usr/bin/env bash
 
 ENVS=()
 ARGS=()
@@ -16,4 +16,8 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-docker exec -it "${ENVS[@]}" "$DOCKER_PHP_CONTAINER_NAME" "${ARGS[@]}"
+TTY_FLAG=""
+STDIN_FD=0 # STDIN file descriptor integer value
+[ -t $STDIN_FD ] && TTY_FLAG="-t"
+
+docker exec -i ${TTY_FLAG} "${ENVS[@]}" "$DOCKER_PHP_CONTAINER_NAME" "${ARGS[@]}"

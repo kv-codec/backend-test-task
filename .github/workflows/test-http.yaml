@@ -15,7 +15,11 @@ jobs:
             - uses: jdx/mise-action@v4
               with:
                   cache: true
-                  # experimental: true # нужно для aqua backend (hurl)
+
+            - name: Set USER_ID
+              run: echo "UID=$(id -u)" >> $GITHUB_ENV
 
             - name: Run HTTP tests
+              env:
+                  USER_ID: ${{ env.UID }}
               run: mise run test-http

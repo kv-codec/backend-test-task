@@ -23,6 +23,8 @@ USER app
 
 COPY --chown=app . /app
 WORKDIR /app
+RUN composer install
+
 
 EXPOSE 8337
 
