@@ -1,0 +1,10 @@
+# yaml-language-server: $schema=https://json.schemastore.org/lefthook.json
+pre-commit:
+    commands:
+        unit-tests:
+            run: mise run tests:**unit
+
+pre-push:
+    commands:
+        all-tests:
+            run: mise run tests:**

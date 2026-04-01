@@ -39,11 +39,24 @@
         "command": "mise run analyze-watch"
     },
     {
-        "label": "tests (t): http",
-        "command": "mise run test-http --verbose --color",
+        "label": "tests (th): http",
+        "command": "mise run \"tests:hurl:http\" --verbose --color",
         "env": {
             "DC_RUN_SILENT": "true"
         },
+        "shell": "system",
+        "use_new_terminal": true,
+        "reveal": "always",
+        "hide": "never",
+        "show_summary": true,
+        "show_command": true
+    },
+    {
+        "label": "tests (tp): pest",
+        "command": "mise run \"tests:pest:**\" --verbose --color",
+        // "env": {
+        //     "DC_RUN_SILENT": "true"
+        // },
         "shell": "system",
         "use_new_terminal": true,
         "reveal": "always",

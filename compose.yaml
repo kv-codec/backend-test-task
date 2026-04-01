@@ -1,18 +1,22 @@
 services:
-    sio_test:
+    php:
         user: app
         build:
-            context: .
+            context: ./
+            dockerfile: ./docker/php/Dockerfile
             args:
                 USER_ID: ${USER_ID:-1000}
-                DOCKER_PHP_VERSION: ${DOCKER_PHP_VERSION:-8.5}
-        container_name: ${DOCKER_PHP_CONTAINER_NAME:-sio_test}
+                DOCKER_PHP_VERSION: ${DC_PHP_VERSION:-8.5}
         ports:
             - "8337:8337"
+        networks:
+            - sio_test_network
         volumes:
-            - .:/app:rw
+            - ./:/app:rw
         environment:
             - APP_ENV=dev
+        # depends_on:
+        #     - postgres
         healthcheck:
             # prettier-ignore
             test:
@@ -21,3 +25,6 @@ services:
             timeout: 10s
             retries: 15
             start_period: 5s
+
+networks:
+    sio_test_network:
