@@ -7,8 +7,8 @@ mago = "latest"
 
 [env]
 _.path = ["./bin", "./vendor/bin"]
-_.file = [".env", ".env.local"]
-DC_SERVICES = "php"
+_.file = [".env", ".env.local", "./.env.*.local"]
+DC_SERVICES = "php;database"
 DC_PHP_VERSION = "8.5"
 COMPOSE_FILE = "{{ config_root }}/compose.yaml"
 # Hurl
@@ -18,8 +18,9 @@ HURL_VARS_FILE = "{{ config_root }}/tests/http/hurl.env"
 PHP_TEST_RUNNER = "vendor/bin/pest"
 
 [shell_alias]
-mago = """mago --config "{{ config_root }}/.config/mago.toml""""
 pest = """pest --test-directory="tests/Php""""
+composer = """mise docker:compose:exec --service php -- composer"""
+console = """mise docker:compose:exec --service php -- bin/console"""
 
 # INFO: Automatically updates git hooks on hook config change
 [[watch_files]]

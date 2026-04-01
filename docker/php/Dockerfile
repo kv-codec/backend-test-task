@@ -9,7 +9,9 @@ RUN apk add --no-cache --update autoconf \
 
 # Setup php extensions
 RUN apk add --no-cache postgresql-dev \
-    && docker-php-ext-install pdo_pgsql pdo_mysql
+    && docker-php-ext-install pdo_pgsql pdo_mysql \
+    && docker-php-ext-install bcmath # For moneyphp/moneyphp
+
 RUN pecl install pcov \
     && docker-php-ext-enable pcov
 
