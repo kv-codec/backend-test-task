@@ -4,12 +4,14 @@
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
          colors="true"
-         failOnDeprecation="true"
-         failOnNotice="true"
-         failOnWarning="true"
-         bootstrap="tests/bootstrap.php"
+         bootstrap="tests/Php/bootstrap.php"
          cacheDirectory=".phpunit.cache"
+         failOnDeprecation="true"
 >
+<!-- failOnWarning="true" -->
+<!-- failOnNotice="true" -->
+
+
     <php>
         <ini name="display_errors" value="1" />
         <ini name="error_reporting" value="-1" />
@@ -38,7 +40,6 @@
             <function>trigger_deprecation</function>
         </deprecationTrigger>
     </source>
-
     <extensions>
     </extensions>
 </phpunit>

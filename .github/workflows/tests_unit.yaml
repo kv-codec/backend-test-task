@@ -1,12 +1,14 @@
-name: HTTP Tests
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Unit Tests
 
 on:
+    push:
     pull_request:
         branches:
             - main
 
 jobs:
-    test-http:
+    tests_api:
         runs-on: ubuntu-latest
 
         steps:
@@ -19,7 +21,7 @@ jobs:
             - name: Set USER_ID
               run: echo "UID=$(id -u)" >> $GITHUB_ENV
 
-            - name: Run HTTP tests
+            - name: Run unit tests
               env:
                   USER_ID: ${{ env.UID }}
-              run: mise run test-http
+              run: mise run tests:**unit

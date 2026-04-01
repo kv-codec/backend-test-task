@@ -36,7 +36,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "App\\Tests\\": "tests/Php"
         }
     },
     "replace": {
@@ -70,6 +70,7 @@
         }
     },
     "require-dev": {
-        "pestphp/pest": "^4.4"
+        "pestphp/pest": "^4.4",
+        "pestphp/pest-plugin-mutate": "^4.0"
     }
 }

@@ -1,56 +1,33 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 
-[env]
-_.file = [".env", ".env.local"]
-COMPOSE_FILE = "./docker-compose.yaml"
-DOCKER_PHP_VERSION = "8.5"
-DOCKER_PHP_CONTAINER_NAME = "sio_test"
-
 [tools]
 hurl = "latest"
 lefthook = "latest"
 mago = "latest"
 
-# section:tasks
-[tasks]
-[tasks.docker-compose-down]
-description = "Stops all containers"
-file = "./.mise/scripts/docker-compose-down.sh"
+[env]
+_.path = ["./bin", "./vendor/bin"]
+_.file = [".env", ".env.local"]
+DC_SERVICES = "php"
+DC_PHP_VERSION = "8.5"
+COMPOSE_FILE = "{{ config_root }}/compose.yaml"
+# Hurl
+HURL_REQUESTS_FILES = "{{ config_root }}/tests/http/requests.hurl"
+HURL_VARS_FILE = "{{ config_root }}/tests/http/hurl.env"
+# Pest
+PHP_TEST_RUNNER = "vendor/bin/pest"
 
-[tasks.docker-compose-up]
-description = "Runs specified containers (all by default) in detached mode"
-depends = ["docker-compose-down"]
-file = "./.mise/scripts/docker-compose-up.sh"
+[shell_alias]
+mago = """mago --config "{{ config_root }}/.config/mago.toml""""
+pest = """pest --test-directory="tests/Php""""
 
-[tasks.docker-compose-logs]
-description = "Shows all containers logs in following mode"
-env = { COMPOSE_FILE = "./docker-compose.yaml" }
-run = "docker compose logs --follow"
-
-[tasks.docker-cli]
-description = "Installs composer dependencies"
-wait_for = ["docker-compose-up"]
-run = "./.mise/scripts/cli.sh"
-
-[tasks.docker-healthcheck]
-description = "Waits for containers to be healthy"
-wait_for = ["docker-cli composer install"]
-file = "./.mise/scripts/docker-healthcheck.sh"
-
-[tasks."tests:pest:unit"]
-description = "Runs unit tests with Pest"
-run = "./vendor/bin/pest"
-
-[tasks."tests:http"]
-description = "Runs HTTP tests with HURL"
-env = { HURL_VARS_FILE = "{{ config_root }}/hurl.env", HURL_REQUESTS_FILES = "requests.hurl", DC_RUN_SILENT = "1" }
-run = [
-  { task = "docker-compose-up" },
-  { task = "docker-cli composer install" },
-  { task = "docker-healthcheck" },
-  "hurl ${HURL_REQUESTS_FILES} --variables-file ${HURL_VARS_FILE:-hurl.env}"
-]
-
+# INFO: Automatically updates git hooks on hook config change
 [[watch_files]]
 patterns = ["./.config/lefthook.yaml"]
 run = "lefthook install"
+
+# INFO: Automatically updates permissions on mise task scripts
+# WARN: Think about how safe is this
+[[watch_files]]
+patterns = [".mise/tasks/**/*"]
+run = """IFS=':' read -ra FILES <<< "$MISE_WATCH_FILES_MODIFIED" ; chmod ug+x ${FILES[@]}"""

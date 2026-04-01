@@ -2,7 +2,7 @@
 pre-commit:
     commands:
         unit-tests:
-            run: mise run tests:**:unit
+            run: mise run tests:**unit
 
 pre-push:
     commands:
