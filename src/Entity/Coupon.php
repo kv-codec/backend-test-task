@@ -9,58 +9,29 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CouponRepository::class)]
 class Coupon
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    public function __construct(
+        #[ORM\Column(length: 255)]
+        public string $code {
+            get => $this->code;
+            set => $this->code = $value;
+        },
 
-    #[ORM\Column(length: 255)]
-    private ?string $code = null;
+        #[ORM\Column(enumType: CouponType::class)]
+        public CouponType $type {
+            get => $this->type;
+            set => $this->type = $value;
+        },
 
-    #[ORM\Column(enumType: CouponType::class)]
-    private ?CouponType $type = null;
-
-    #[ORM\Column]
-    private ?int $discount_size = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
-
-    public function getCode(): ?string
-    {
-        return $this->code;
-    }
-
-    public function setCode(string $code): static
-    {
-        $this->code = $code;
-
-        return $this;
-    }
-
-    public function getType(): ?CouponType
-    {
-        return $this->type;
-    }
-
-    public function setType(CouponType $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getDiscountSize(): ?int
-    {
-        return $this->discount_size;
-    }
-
-    public function setDiscountSize(int $discount_size): static
-    {
-        $this->discount_size = $discount_size;
-
-        return $this;
-    }
+        #[ORM\Column]
+        public int $discount_size {
+            get => $this->discount_size;
+            set => $this->discount_size = $value;
+        },
+        #[ORM\Id]
+        #[ORM\GeneratedValue]
+        #[ORM\Column]
+        public ?int $id = null {
+            get => $this->id;
+        },
+    ) {}
 }

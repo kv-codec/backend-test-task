@@ -1,7 +1,7 @@
 # TODO:
 ## POST /api/calculate-price:
 ### Coupons:
-- [ ] Make it possible to create them somehow
+- [x] Make it possible to create them somehow
 - [ ] Validate coupon codes 
 ### Tax Numbers:
 - [ ] Validate using handwritten matchers and strategy pattern

@@ -16,6 +16,29 @@ class CouponRepository extends ServiceEntityRepository
         parent::__construct($registry, Coupon::class);
     }
 
+    public function insert(Coupon $coupon): void
+    {
+        $this->getEntityManager()->persist($coupon);
+        $this->getEntityManager()->flush();
+    }
+
+    /** @param Coupon[] $coupons */
+    public function insertBatch(array $coupons)
+    {
+        $em = $this->getEntityManager();
+        array_walk($coupons, fn($coupon) => $em->persist($coupon));
+        $em->flush();
+    }
+
+    public function findOneByCode(string $code): ?Coupon
+    {
+        return $this->createQueryBuilder('c')
+            ->andWhere('c.code = :code')
+            ->setParameter('code', $code)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     //    /**
     //     * @return Coupon[] Returns an array of Coupon objects
     //     */
@@ -30,7 +53,6 @@ class CouponRepository extends ServiceEntityRepository
     //            ->getResult()
     //        ;
     //    }
-
     //    public function findOneBySomeField($value): ?Coupon
     //    {
     //        return $this->createQueryBuilder('c')

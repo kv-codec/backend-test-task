@@ -31,4 +31,8 @@ run = "lefthook install"
 # WARN: Think about how safe is this
 [[watch_files]]
 patterns = [".mise/tasks/**/*"]
-run = """IFS=':' read -ra FILES <<< "$MISE_WATCH_FILES_MODIFIED" ; chmod ug+x ${FILES[@]}"""
+run = """
+IFS=':' read -ra FILES <<< "$MISE_WATCH_FILES_MODIFIED"
+UNIQUE_FILES=$(for f in "${FILES[@]}"; do realpath "$f"; done | sort -u)
+chmod ug+x $UNIQUE_FILES
+"""

@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20260402144940 extends AbstractMigration
+final class Version20260403054907 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,24 +21,23 @@ final class Version20260402144940 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $sql = <<<SQL
-            CREATE TABLE coupon (
+            CREATE TABLE tax (
                 id BIGSERIAL PRIMARY KEY,
-                code VARCHAR(255) NOT NULL,
-                type VARCHAR(255) NOT NULL,
-                discount_size INT NOT NULL CHECK (
-                    CASE
-                        WHEN "type" = 'percent' THEN discount_size BETWEEN 0 AND 100
-                        ELSE discount_size >= 0
-                    END
-                )
+                rate INT NOT NULL CHECK (rate >= 0),
+                geo_code VARCHAR(255) NOT NULL
             )
             SQL;
-        $this->addSql($sql);
+        $this->addSql(
+            $sql,
+        );
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('DROP TABLE coupon');
+        $sql = <<<SQL
+            DROP TABLE tax
+            SQL;
+        $this->addSql($sql);
     }
 }

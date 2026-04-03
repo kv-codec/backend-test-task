@@ -29,9 +29,7 @@ class ProductRepository extends ServiceEntityRepository
     public function insertBatch(array $products): void
     {
         $em = $this->getEntityManager();
-        foreach ($products as $product) {
-            $em->persist($product);
-        }
+        array_walk($products, fn($product) => $em->persist($product));
         $em->flush();
     }
 
@@ -40,8 +38,7 @@ class ProductRepository extends ServiceEntityRepository
      */
     public function findByPublicId(Uuid $uuid, int $limit = 20, int $offset = 0): array
     {
-        return $this
-            ->createQueryBuilder('p')
+        return $this->createQueryBuilder('p')
             ->andWhere('p.public_id = :id')
             ->setParameter('id', $uuid)
             ->orderBy('p.id', 'ASC')
@@ -53,8 +50,7 @@ class ProductRepository extends ServiceEntityRepository
 
     public function findOneByPublicId(Uuid $id): ?Product
     {
-        return $this
-            ->createQueryBuilder('p')
+        return $this->createQueryBuilder('p')
             ->andWhere('p.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
