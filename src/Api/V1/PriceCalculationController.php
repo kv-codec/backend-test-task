@@ -30,6 +30,9 @@ final readonly class PriceCalculationController
     public function calculatePrice(#[MapRequestPayload] PriceCalculationDto $dto): Response
     {
         $this->logger->debug('Received: {dto}', ['dto' => $dto]);
-        return new JsonResponse(status: Response::HTTP_OK);
+        return new JsonResponse(
+            data: ['final_price' => $this->priceCalculator->calculate($dto)],
+            status: Response::HTTP_OK,
+        );
     }
 }

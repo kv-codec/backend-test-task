@@ -1,5 +1,8 @@
 #:schema https://mise.jdx.dev/schema/mise.json
 
+[settings]
+experimental = true
+
 [tools]
 hurl = "latest"
 lefthook = "latest"
@@ -12,20 +15,22 @@ DC_SERVICES = "php;database"
 DC_PHP_VERSION = "8.5"
 COMPOSE_FILE = "{{ config_root }}/compose.yaml"
 # Hurl
-HURL_REQUESTS_FILES = "{{ config_root }}/tests/http/requests.hurl"
+HURL_REQUESTS_FILE = "{{ config_root }}/tests/http/requests.hurl"
 HURL_VARS_FILE = "{{ config_root }}/tests/http/hurl.env"
-# Pest
-PHP_TEST_RUNNER = "vendor/bin/pest"
+# Testing
+PHP_TEST_RUNNER = "vendor/bin/paratest"
 
 [shell_alias]
-pest = """pest --test-directory="tests/Php""""
 composer = """mise docker:compose:exec --service php -- composer"""
 console = """mise docker:compose:exec --service php -- bin/console"""
 
 # INFO: Automatically updates git hooks on hook config change
 [[watch_files]]
-patterns = ["./.config/lefthook.yaml"]
-run = "lefthook install"
+patterns = ["{{ config_root }}/tools/lefthook/lefthook.yaml"]
+run = """
+cp {{ config_root }}/tools/lefthook/lefthook.yaml {{ config_root }}/.lefthook.yaml
+lefthook install
+"""
 
 # INFO: Automatically updates permissions on mise task scripts
 # WARN: Think about how safe is this

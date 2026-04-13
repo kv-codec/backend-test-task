@@ -7,7 +7,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
-#[AsEventListener(event: KernelEvents::REQUEST, priority: 10)]
+#[AsEventListener(
+    event: KernelEvents::REQUEST,
+    priority: 10,
+)]
 final readonly class ApiVersionListener
 {
     public function __invoke(RequestEvent $event): void

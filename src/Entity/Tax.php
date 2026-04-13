@@ -10,7 +10,10 @@ use Doctrine\ORM\Mapping as ORM;
 class Tax
 {
     public function __construct(
-        #[ORM\Column(enumType: GeoCode::class)]
+        #[ORM\Column(
+            name: 'geo_code',
+            enumType: GeoCode::class,
+        )]
         private(set) GeoCode $geoCode {
             get => $this->geoCode;
         },

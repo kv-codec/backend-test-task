@@ -10,6 +10,6 @@ class UuidV7Generator extends AbstractIdGenerator
 {
     public function generateId(EntityManagerInterface $em, ?object $entity): Uuid
     {
-        return Uuid::v7();
+        return $entity?->id !== null ? $entity->id : Uuid::v7();
     }
 }

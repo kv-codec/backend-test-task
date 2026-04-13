@@ -22,7 +22,7 @@ final class Version20260402061140 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $sql = <<<SQL
             CREATE TABLE product (
-                id UUID PRIMARY KEY DEFAULT uuidv7(),
+                id UUID PRIMARY KEY,
                 name VARCHAR(255) NOT NULL,
                 price BIGINT NOT NULL
             )

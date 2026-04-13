@@ -4,13 +4,11 @@ namespace App\Service\Impl;
 
 use App\Dto\In\PriceCalculationDto;
 use App\Enum\CouponType;
-use App\Enum\GeoCode;
 use App\Repository\CouponRepository;
 use App\Repository\ProductRepository;
 use App\Repository\TaxRepository;
 use App\Service\PriceCalculationService;
 use Exception;
-use InvalidArgumentException;
 use Override;
 
 final readonly class FinalPriceCalculator implements PriceCalculationService
@@ -24,18 +22,14 @@ final readonly class FinalPriceCalculator implements PriceCalculationService
     #[Override]
     public function calculate(PriceCalculationDto $dto): float
     {
-        $basePrice  = $this->productRepository->findOneByPublicId($dto->productId)->price ?? throw new Exception(
+        $basePrice = $this->productRepository->findOneByPublicId($dto->productId)->price ?? throw new Exception(
             message: "Unable to find product with id({$dto->productId})",
         );
-        $coupon     = $this->couponRepository->findOneByCode($dto->couponCode) ?? throw new Exception(
+        $coupon    = $this->couponRepository->findOneByCode($dto->couponCode) ?? throw new Exception(
             message: "Unable to find coupon with code({$dto->couponCode})",
         );
-        $geoCodeStr = substr($dto->taxNumber, offset: 0, length: 2);
-        $geoCode    = GeoCode::tryFrom(strtolower($geoCodeStr)) ?? throw new InvalidArgumentException(
-            "Unknown code: $geoCodeStr",
-        );
-        $taxRate    = $this->taxRepository->findOneByGeoCode($geoCode) ?? throw new Exception(
-            message: "Unable to find tax jurisdiction with geocode({$geoCode})",
+        $taxRate   = $this->taxRepository->findOneByGeoCode($dto->taxNumber->geoCode) ?? throw new Exception(
+            message: "Unable to find tax jurisdiction with geocode({$dto->taxNumber->geoCode})",
         );
 
         //INFO: $finalPrice = $basePrice * (1 - $couponSize) * (1 + $taxRate)

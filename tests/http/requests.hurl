@@ -15,7 +15,13 @@ Content-Type: application/json
 Accept: application/json
 {
     "product": "019d4dc6-6ee6-79c6-8cfa-e981c1ae2106",
-    "taxNumber": "tax",
-    "coupon": "coupon"
+    "taxNumber": {
+        "geoCode": "DE",
+        "number": "123456789"
+    },
+    "coupon": "percent10"
 }
 HTTP 200
+[Asserts]
+header "Content-Type" contains "application/json"
+jsonpath "$.final_price" == 107.1

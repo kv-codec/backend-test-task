@@ -4,8 +4,8 @@ namespace App\Enum;
 
 enum GeoCode: string
 {
-    case Germany = 'de';
-    case France  = 'fr';
-    case Italy   = 'it';
-    case Greece  = 'gr';
+    case Germany = 'DE';
+    case France  = 'FR';
+    case Italy   = 'IT';
+    case Greece  = 'GR';
 }

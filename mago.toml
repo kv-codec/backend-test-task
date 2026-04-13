@@ -1,12 +1,11 @@
-# Welcome to Mago!
 # For full documentation, see https://mago.carthage.software/tools/overview
-#:schema ./.schema/mago.json
+#:schema ./tools/mago/schema.json
 
 php-version = "8.5.0"
 
 [source]
 workspace = "."
-paths = ["./src", "./config", "./tests"]
+paths = ["./config", "./src", "./tests"]
 includes = ["vendor"]
 excludes = []
 

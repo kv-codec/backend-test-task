@@ -79,11 +79,14 @@
         }
     },
     "require-dev": {
+        "brianium/paratest": "^7.20",
         "dama/doctrine-test-bundle": "^8.6",
         "doctrine/doctrine-fixtures-bundle": "^4.3",
         "mockery/mockery": "^1.6",
-        "pestphp/pest": "^4.4",
         "pestphp/pest-plugin-mutate": "^4.0",
-        "symfony/maker-bundle": "^1.67"
+        "phpunit/phpunit": "^13.0",
+        "symfony/maker-bundle": "^1.67",
+        "symfony/var-dumper": "8.*",
+        "zenstruck/foundry": "^2.9"
     }
 }

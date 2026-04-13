@@ -34,7 +34,7 @@ class TaxRepository extends ServiceEntityRepository
     public function findOneByGeoCode(GeoCode $code): ?Tax
     {
         return $this->createQueryBuilder('t')
-            ->andWhere('t.geo_code = :code')
+            ->andWhere('t.geoCode = :code')
             ->setParameter('code', $code)
             ->getQuery()
             ->getOneOrNullResult();

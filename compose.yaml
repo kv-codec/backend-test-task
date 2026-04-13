@@ -37,7 +37,7 @@ services:
             POSTGRES_USER: ${DB_USER:-app}
             PGDATA: /var/lib/postgresql/18/docker
         ports:
-            - "${DB_PORT:-5432}"
+            - "${DB_PORT:-5432}:5432"
         networks:
             - sio_test_network
         volumes:
