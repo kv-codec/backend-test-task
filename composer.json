@@ -8,14 +8,23 @@
         "php": ">=8.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/doctrine-bundle": "^3.2",
+        "doctrine/doctrine-migrations-bundle": "^4.0",
+        "doctrine/orm": "^3.6",
+        "moneyphp/money": "^4.8",
+        "phpdocumentor/reflection-docblock": "^6.0",
+        "phpstan/phpdoc-parser": "^2.3",
         "symfony/console": "8.*",
+        "symfony/doctrine-bridge": "8.*",
         "symfony/dotenv": "8.*",
         "symfony/expression-language": "8.*",
         "symfony/flex": "2.*",
         "symfony/framework-bundle": "8.*",
         "symfony/property-access": "8.*",
+        "symfony/property-info": "8.*",
         "symfony/runtime": "8.*",
         "symfony/serializer": "8.*",
+        "symfony/uid": "8.*",
         "symfony/validator": "8.*",
         "symfony/yaml": "8.*",
         "systemeio/test-for-candidates": "^1.0.2"
@@ -70,7 +79,14 @@
         }
     },
     "require-dev": {
-        "pestphp/pest": "^4.4",
-        "pestphp/pest-plugin-mutate": "^4.0"
+        "brianium/paratest": "^7.20",
+        "dama/doctrine-test-bundle": "^8.6",
+        "doctrine/doctrine-fixtures-bundle": "^4.3",
+        "mockery/mockery": "^1.6",
+        "pestphp/pest-plugin-mutate": "^4.0",
+        "phpunit/phpunit": "^13.0",
+        "symfony/maker-bundle": "^1.67",
+        "symfony/var-dumper": "8.*",
+        "zenstruck/foundry": "^2.9"
     }
 }

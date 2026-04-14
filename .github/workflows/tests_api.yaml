@@ -23,4 +23,4 @@ jobs:
             - name: Run REST API tests
               env:
                   USER_ID: ${{ env.UID }}
-              run: mise run tests:**api
+              run: VERBOSE=1 mise run tests:**api

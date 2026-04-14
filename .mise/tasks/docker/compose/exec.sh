@@ -31,9 +31,8 @@ docker_exec() {
     done
 
     local TTY
-    if [ -t 0 ]; then TTY=1; fi
     log "TTY value: ${TTY}"
-    docker compose exec -i ${TTY:+"-t"} "${ENVS[@]}" "${SERVICE}" "${ARGS[@]}"
+    docker compose exec -i "${ENVS[@]}" "${SERVICE}" "${ARGS[@]}"
 }
 
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then

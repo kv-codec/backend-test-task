@@ -1,18 +1,25 @@
-# Welcome to Mago!
 # For full documentation, see https://mago.carthage.software/tools/overview
-#:schema ../.schema/mago.json
+#:schema ./tools/mago/schema.json
 
 php-version = "8.5.0"
 
 [source]
 workspace = "."
-paths = ["../src/", "../config/**/*"]
+paths = ["./config", "./src", "./tests"]
 includes = ["vendor"]
 excludes = []
 
 [formatter]
 preset = "default"
-print-width = 80
+print-width = 120
+align-assignment-like = true
+always-break-attribute-named-argument-lists = true
+always-break-named-arguments-list = true
+array-table-style-alignment = true
+preserve-breaking-argument-list = true
+preserve-breaking-parameter-list = true
+preserve-breaking-member-access-chain = true
+first-method-chain-on-new-line = false
 method-chain-breaking-style = "same_line"
 
 [linter]

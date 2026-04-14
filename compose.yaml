@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/compose-spec/compose-go/master/schema/compose-spec.json
 services:
     php:
         user: app
@@ -15,8 +16,8 @@ services:
             - ./:/app:rw
         environment:
             - APP_ENV=dev
-        # depends_on:
-        #     - postgres
+        depends_on:
+            - database
         healthcheck:
             # prettier-ignore
             test:
@@ -26,5 +27,36 @@ services:
             retries: 15
             start_period: 5s
 
+    ###> doctrine/doctrine-bundle ###
+    database:
+        image: postgres:${POSTGRES_VERSION:-18}-alpine
+        environment:
+            POSTGRES_DB: ${DB_NAME:-app}
+            # You should definitely change the password in production
+            POSTGRES_PASSWORD: ${DB_PASS}
+            POSTGRES_USER: ${DB_USER:-app}
+            PGDATA: /var/lib/postgresql/18/docker
+        ports:
+            - "${DB_PORT:-5432}:5432"
+        networks:
+            - sio_test_network
+        volumes:
+            - sio_test_db_data:/var/lib/postgresql:rw
+        # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
+        # - ./docker/db/data:/var/lib/postgresql/data:rw
+        healthcheck:
+            # prettier-ignore
+            test:
+                ["CMD", "pg_isready", "-d", "${DB_NAME:-app}", "-U", "${DB_USER:-app}"]
+            timeout: 5s
+            retries: 5
+            start_period: 60s
+###< doctrine/doctrine-bundle ###
+
 networks:
     sio_test_network:
+
+volumes:
+    ###> doctrine/doctrine-bundle ###
+    sio_test_db_data:
+    ###< doctrine/doctrine-bundle ###

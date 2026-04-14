@@ -16,3 +16,9 @@ compose.override.yaml
 /phpunit.xml
 /.phpunit.cache/
 ###< phpunit/phpunit ###
+
+# lefthook
+.lefthook.yaml
+.lefthook.toml
+.lefthook.json
+.lefthook.jsonc
